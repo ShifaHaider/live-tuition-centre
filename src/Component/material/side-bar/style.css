@@ -1,0 +1,12 @@
+.sideBar{
+    height: 100%;
+    width: 70px;
+    position: fixed;
+    z-index: 1;
+    background-color: #00bcd4;
+    overflow-x: hidden;
+    padding-top: 50px;
+}
+.icons{
+    text-align: center;
+}
