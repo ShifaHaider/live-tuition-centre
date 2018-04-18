@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {List, ListItem} from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
-import Drawer from '../drawer'
+import Drawer from '../drawer/drawer'
 import './style.css'
 import ToolBar from "../app-bar";
 

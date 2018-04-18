@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import SideBar from "../material/side-bar/side-bar";
-import Drawer from "../material/drawer";
+import Drawer from '../material/drawer/drawer'
 import ToolBar from "../material/app-bar";
 
 

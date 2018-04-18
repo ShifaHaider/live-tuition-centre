@@ -91,8 +91,6 @@ class Register extends Component {
                     value={this.state.userData.phone}
                     onChange={this.handleChangeReg.bind(this, 'phone')}/><br/>
                 <RaisedButton label='Create Account' secondary={true} onClick={this.createAccount.bind(this)}/><br/><br/>
-
-
                 <Dialog
                     actions={<FlatButton
                         label="Cancel"

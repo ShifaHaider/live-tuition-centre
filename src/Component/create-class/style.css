@@ -1,7 +1,14 @@
 
 .card{
     margin: 60px 150px 0 200px;
+}
 
+.cardText{
+    padding-top: 80px;
+}
+
+.finalButton{
+    margin: 20px 20px 20px 800px ;
 }
 
 .timePicker{
@@ -10,4 +17,13 @@
 
 .listText{
     color: aliceblue;
+}
+
+.icons{
+    padding-right: 100px;
+
+}
+.icon{
+    text-align: center;
+    /*background-color: white;*/
 }

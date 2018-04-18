@@ -9,7 +9,7 @@ import {Router, Route, Switch, Link} from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import CreateClass from "./Component/create-class/create-class";
 import Classes from "./Component/classes/classes";
-import Drawer from "./Component/material/drawer";
+import Drawer from "./Component/material/drawer/drawer";
 import ToolBar from "./Component/material/app-bar";
 
 
@@ -29,6 +29,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+
                 <Router history={history}>
                     <div>
                         <Switch>

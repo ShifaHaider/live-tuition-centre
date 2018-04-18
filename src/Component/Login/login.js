@@ -26,7 +26,6 @@ class Login extends Component {
             .then((data) => {
                 localStorage.setItem('Id', data.uid);
                 this.props.history.push('/dashboard');
-
             })
             .catch((error) => {
                 this.setState({message: error.message, isAlertOpen: true});
@@ -43,7 +42,9 @@ class Login extends Component {
             var data = {};
             data.name = profile.name;
             data.email = profile.email;
+            data.picture = profile.picture;
             data.id = result.user.uid;
+            data.creatdAt = Date.now();
             this.checkAccount(data);
         }).catch((function (error) {
                 console.log(error);
@@ -78,13 +79,9 @@ class Login extends Component {
                     localStorage.setItem('userId' , data.id);
                     this.props.history.push('/dashboard');
                 })
-
-
-
             }
         });
         console.log(data);
-
     }
 
     handleChangeLog(p, e) {
@@ -100,7 +97,6 @@ class Login extends Component {
     close() {
         this.setState({isAlertOpen: false});
     }
-
 
     render() {
         return (
@@ -123,8 +119,6 @@ class Login extends Component {
                 <RaisedButton label='Login Google' primary={true} onClick={this.loginGoogle.bind(this)}/><br/><br/>
                </Card>
                 {/*<RaisedButton label='Login Facebook' primary={true} onClick={this.loginFacebook.bind(this)}/>*/}
-
-
                 <Dialog
                     actions={<FlatButton
                         label="Cancel"

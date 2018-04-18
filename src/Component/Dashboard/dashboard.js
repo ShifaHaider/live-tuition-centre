@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import SideBar from "../material/side-bar/side-bar";
 import ToolBar from "../material/app-bar";
-import Drawer from '../material/drawer'
+import Drawer from '../material/drawer/drawer'
 
 
 class Dashboard extends Component{
