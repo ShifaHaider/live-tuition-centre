@@ -63,7 +63,10 @@ class Login extends Component {
             data.id = result.user.uid;
             console.log(data);
             this.checkAccount(data);
+        }).catch((function (error) {
+            console.log(error);
         })
+        )
     }
 
     checkAccount(data) {
@@ -117,8 +120,8 @@ class Login extends Component {
                     onChange={this.handleChangeLog.bind(this, 'logPassword')}/><br/>
                 <RaisedButton label='Login' secondary={true} onClick={this.loginAccount.bind(this)}/><br/><br/>
                 <RaisedButton label='Login Google' primary={true} onClick={this.loginGoogle.bind(this)}/><br/><br/>
-               </Card>
-                {/*<RaisedButton label='Login Facebook' primary={true} onClick={this.loginFacebook.bind(this)}/>*/}
+                <RaisedButton label='Login Facebook' primary={true} onClick={this.loginFacebook.bind(this)}/>
+            </Card>
                 <Dialog
                     actions={<FlatButton
                         label="Cancel"

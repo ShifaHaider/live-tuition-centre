@@ -61,7 +61,6 @@ class Register extends Component {
     }
 
     render() {
-
         return (
             <div className='register'>
                 <AppBar className='a' title='Register' iconElementRight={<FlatButton onClick={this.login.bind(this)}><small>Login</small></FlatButton>}/>
@@ -70,8 +69,7 @@ class Register extends Component {
                     hintText="Name Field"
                     floatingLabelText="Name"
                     type="text"
-                    value={this.state.userData.name}
-                    onChange={this.handleChangeReg.bind(this, 'name')}/><br/>
+                    value={this.state.userData.name} onChange={this.handleChangeReg.bind(this, 'name')}/><br/>
                 <TextField
                     hintText="Email Field"
                     floatingLabelText="Email"

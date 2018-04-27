@@ -3,12 +3,18 @@
     margin: 60px 150px 0 200px;
 }
 
-.cardText{
+.sideBarText{
     padding-top: 80px;
+    width: 160px;
+}
+
+.cardHeader{
+
 }
 
 .finalButton{
     margin: 20px 20px 20px 800px ;
+
 }
 
 .timePicker{
