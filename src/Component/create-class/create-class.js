@@ -18,24 +18,25 @@ import RaisedButton from 'material-ui/RaisedButton';
 import firebase from 'firebase'
 import firestore from 'firebase/firestore'
 import ToolBar from "../material/app-bar";
-
-
+import {Cropper} from 'react-image-cropper'
+import './Image-20180103_210221.jpg'
 class CreateClass extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: null,
-            // values: [],
+            subject: '',
+            values: [],
             sidebarOpen: false,
             classData: {
                 title: '',
                 description: '',
                 fee: '',
                 days: [],
-                subject: '',
                 startTime: {},
                 endTime: {}
             },
+            cropper: '',
            classDataByFirebase: []
         };
         this.loadUserData();
@@ -48,32 +49,27 @@ class CreateClass extends Component {
         },
 
     };
-    names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    handleChangeSelect(event, index, values) {
-        this.setState({values: values});
-    };
+ names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     menuItems(values) {
         return this.names.map((name) => (
-            <MenuItem
-                key={name} insetChildren={true} checked={values && values.indexOf(name) > -1}
-                value={name} primaryText={name}/>
+          <MenuItem key={name}insetChildren={true}
+            checked={values && values.indexOf(name) > -1} value={name} primaryText={name} />
         ));
-    }
+      }
 
-    loadUserData() {
-        var db = firebase.firestore();
-        var userId = localStorage.getItem('userId');
-        db.collection('Users').doc(userId).get().then((userData) => {
-            this.userData = userData.data();
-            var userProfile = userData.data().picture;
-            this.setState({userProfile: userProfile});
-        })
-    }
+    handleChangeSelect(event, index, values) {
+        this.setState({values: values});
+        console.log(this.state.values)
+    };
 
     handleChange(event, index, value) {
-        this.setState({value: value})
+        console.log(value , event.target.textContent , index);
+        var subject = this.state.classData.subject;
+        var subjectC = event.target.textContent;
+        console.log(subjectC);
+        this.setState({value: value, subject: subjectC});
+        console.log(this.state.value,  this.state.classData.subject)
     }
 
     dashboard() {
@@ -93,33 +89,48 @@ class CreateClass extends Component {
     }
 
     textChange(p, e, v) {
-        console.log(p, e.target.value, v);
         var classData = this.state.classData;
+        // classData.days = this.state.classData.values;
         classData[p] = e.target.value;
         this.setState({classData: classData});
-        console.log(this.state.classData);
     }
 
-    saveClassData() {
+    loadUserData() {
+        var db = firebase.firestore();
+        var userId = localStorage.getItem('userId');
+        db.collection('Users').doc(userId).get().then((userData) => {
+            this.userData = userData.data();
+            var userProfile = userData.data().picture;
+            this.setState({userProfile: userProfile});
+        })
+    }
+
+    saveClassData () {
         var db = firebase.firestore();
         var classData = this.state.classData;
         classData.teacherID = this.userData.id;
         classData.creatdAt = Date.now();
+        classData.subject= this.state.subject;
         console.log(classData);
-        db.collection('Classes').add(classData);
+        db.collection('Classes').add({classData});
     }
 
     loadClassData() {
         var db = firebase.firestore();
         db.collection('Classes').get().then((classCollection) => {
-            classCollection.forEach(function(classesData) {
-               var classData = classesData.data();
+            classCollection.forEach((classesData)=> {
+                console.log(classesData);
+                var classData = classesData.data();
                 console.log(classData);
+                var arr = [];
+                arr.push(classData);
+                console.log(arr);
+                this.setState({classDataByFirebase: arr});
             });
-            // this.setState({classDataByFirebase: this.classData});
-            // console.log(this.state.classDataByFirebase);
+            console.log(this.state.classDataByFirebase);
         })
     }
+
 
 
     render() {
@@ -137,10 +148,28 @@ class CreateClass extends Component {
         return (
             <div>
                 <AppBar title='Dashboard' showMenuIconButton={false} iconElementRight={icons}/>
-                <button onClick={this.loadUserData.bind(this)}>dfgdf</button>
+                {/*<button onClick={this.loadUserData.bind(this)}>dfgdf</button>*/}
                 <div>
-                    <Sidebar sidebar={<Card className='sideBarText'><CardHeader className='cardHeader'>ffff</CardHeader></Card>}
-                             docked={this.state.sidebarOpen}>
+                    <Sidebar sidebar={
+                        <List className='sideBarText'>
+                            {this.state.classDataByFirebase.map((data, index)=>{
+                                return(
+                                    <div className='sideBarText'>
+                                        {console.log(data, index)}
+                                        {/*<CardText key={index}>*/}
+                                           {/*{data.title}*/}
+                                        {/*</CardText>*/}
+                                        {/*<CardText>{data.description}</CardText>*/}
+                                        <ListItem key ={data.teacherID}>
+                                            <b>{data.title}</b>
+                                            {/*<b>{data.description}</b>*/}
+                                        </ListItem>
+
+                                     </div>
+                                )
+                            })}
+                        {/*<CardHeader className='cardHeader'></CardHeader>*/}
+                    </List>} docked={this.state.sidebarOpen}>
                         <SideBar toggleSideBar={this.onSetSidebarOpen}/>
                         <Card className='card'>
                             <CardText className='text'>
@@ -157,11 +186,11 @@ class CreateClass extends Component {
                             </CardText>
                             <CardText>
                                 <SelectField multiple={true} hintText="How many days in a week" fullWidth={true}
-                                value={this.state.classData.days} onChange={this.textChange.bind(this, 'days')}>{this.menuItems(values)}
+                                value={values} onChange={this.handleChangeSelect.bind(this)}>{this.menuItems(values)}
                                 </SelectField>
                                 <TextField floatingLabelText="fee" fullWidth={true} type='number'
                                 value={this.state.classData.fee} onChange={this.textChange.bind(this, 'fee')}/>
-                                <SelectField value={this.state.classData.subject} onChange={this.textChange.bind(this, 'subject')} floatingLabelText="Subject">
+                                <SelectField value={this.state.value} onChange={this.handleChange.bind(this)} floatingLabelText="Subject">
                                     <MenuItem key={1} value={1} primaryText="Chemistry"/>
                                     <MenuItem key={2} value={2} primaryText="Biology"/>
                                     <MenuItem key={3} value={3} primaryText="English"/>
@@ -170,7 +199,9 @@ class CreateClass extends Component {
                                     <TimePicker style={{display: 'inline-block', width: '50%'}} hintText="Start Time"/>
                                     <TimePicker style={{display: 'inline-block', width: '50%'}} hintText="End Time"/>
                                     <input type="file"/>
-                                    <button onClick={this.loadClassData.bind(this)}>dfgdf</button>
+                                {/*<Cropper src="./Image-20180103_210221.jpg" ref={ ref => { this.state.cropper = ref }}/>*/}
+                                 {/*<button >Save</button>*/}
+                                    <button onClick={this.loadClassData.bind(this)}>Load Class Data</button>
                                     <RaisedButton label='Create' primary={true} className='finalButton' onClick={this.saveClassData.bind(this)}/>
                                 </div>
                             </CardText>
