@@ -13,7 +13,7 @@ import Drawer from "./Component/material/drawer/drawer";
 import ToolBar from "./Component/material/app-bar";
 
 
-// Initialize Firebase
+
 var config = {
     apiKey: "AIzaSyDFXUDwwIITkocKHqCMGDdmbKMxZ0kPo0g",
     authDomain: "react-component-4988c.firebaseapp.com",

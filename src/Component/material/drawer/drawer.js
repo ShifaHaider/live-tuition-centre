@@ -43,15 +43,16 @@ class Drawer extends Component {
                 <div>
                     <Sidebar sidebar={
                         <Card className='cardText'>
-                            {this.state.classDataByFirebase.map((data , index)=>{
-                                {console.log(data , index)}
+                            {this.state.classDataByFirebase.map((data, index)=>{
                                 return(
                                     <div>
-                                    <CardText key ={index}>{data.title}</CardText>
-                                </div>)
-
+                                        {console.log(data, index)}
+                                        <CardText key ={data.teacherID} className='textCard'>
+                                            {data.subject}
+                                        </CardText>
+                                    </div>
+                                )
                             })}
-                            {/*<CardText>adasdasdasda</CardText>*/}
                     </Card>} docked={this.state.sidebarOpen}>
                         <SideBar toggleSideBar={this.onSetSidebarOpen}/>
                     </Sidebar>

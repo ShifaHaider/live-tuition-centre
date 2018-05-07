@@ -43,9 +43,11 @@ class Login extends Component {
             data.name = profile.name;
             data.email = profile.email;
             data.picture = profile.picture;
+            console.log(profile.picture);
             data.id = result.user.uid;
             data.creatdAt = Date.now();
             this.checkAccount(data);
+            console.log(data);
         }).catch((function (error) {
                 console.log(error);
             })
