@@ -4,15 +4,16 @@
 }
 
 .sideBarText{
-    padding-top: 130px;
+    /*padding-top: 70px;*/
+    /*margin-top: 64px;*/
     width: 160px;
+
 }
 .textCard{
-    padding: 1px 0 0 2px;
+    /*padding: 1px 0 0 2px;*/
 }
 .finalButton{
     margin: 20px 20px 20px 800px ;
-
 }
 
 .timePicker{

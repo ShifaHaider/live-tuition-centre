@@ -1,11 +1,17 @@
 .cardText{
-    padding-top: 80px;
-    color: #00bcd4;
+    margin-top: 64px;
+    width: 150px;
 }
 .button{
     margin-left: 100px;
 }
 .text{
     text-align: center;
-    padding-top: 100px;
+    /*padding-top: 100px;*/
+}
+
+.card{
+    text-align: center;
+    /*width: 400px;*/
+
 }

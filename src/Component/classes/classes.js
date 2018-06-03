@@ -4,10 +4,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import SideBar from "../material/side-bar/side-bar";
 import Drawer from '../material/drawer/drawer'
 import ToolBar from "../material/app-bar";
-
+import SideBar from "../material/side-bar/side-bar";
 
 class Classes extends Component {
     constructor(props) {
@@ -16,6 +15,7 @@ class Classes extends Component {
     }
 
     dashboard() {
+
         this.props.history.push('/dashboard');
     }
 

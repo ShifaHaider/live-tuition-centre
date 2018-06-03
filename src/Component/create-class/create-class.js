@@ -19,7 +19,7 @@ import firebase from 'firebase'
 import firestore from 'firebase/firestore'
 import ToolBar from "../material/app-bar";
 import {Cropper} from 'react-image-cropper'
-import './Image-20180103_210221.jpg'
+import '../material/image-cropper/Image-20180103_210221.jpg'
 
 class CreateClass extends Component {
     constructor(props) {
@@ -62,16 +62,12 @@ class CreateClass extends Component {
 
     handleChangeSelect(event, index, values) {
         this.setState({values: values});
-        console.log(this.state.values)
     };
 
     handleChange(event, index, value) {
-        console.log(value, event.target.textContent, index);
         var subject = this.state.classData.subject;
         var subjectC = event.target.textContent;
-        console.log(subjectC);
         this.setState({value: value, subject: subjectC});
-        console.log(this.state.value, this.state.classData.subject)
     }
 
     dashboard() {
@@ -109,7 +105,6 @@ class CreateClass extends Component {
     }
 
     timeChange(p, e, value) {
-        console.log(p, e, value);
         var classData = this.state.classData;
         classData[p] = value;
         this.setState({createClass: classData});
@@ -130,11 +125,13 @@ class CreateClass extends Component {
     loadClassData() {
         var db = firebase.firestore();
         db.collection('Classes').get().then((classCollection) => {
+            console.log(classCollection);
+            var arr = [];
             classCollection.forEach((classesData) => {
                 console.log(classesData);
                 var classData = classesData.data();
                 console.log(classData);
-                var arr = [];
+
                 arr.push(classData);
                 console.log(arr);
                 this.setState({classDataByFirebase: arr});
@@ -160,42 +157,37 @@ class CreateClass extends Component {
             <div>
                 <AppBar title='Dashboard' showMenuIconButton={false} iconElementRight={icons}/>
                 <div>
-                    <Sidebar sidebar={
-                        <Card className='sideBarText'>
+                    <Sidebar sidebar=
                             {this.state.classDataByFirebase.map((data, index) => {
                                 return (
-                                    <div>
+                                    <div className=''>
+                                        <Card className='sideBarText'>
                                         <CardText className='textCard' key={data.teacherID}>
                                             <b>{data.title}</b> <br/>
                                             <p>{data.description}</p>
                                         </CardText>
+                                        </Card>
                                     </div>
                                 )
                             })}
-                        </Card>}
                              docked={this.state.sidebarOpen}>
                         <SideBar toggleSideBar={this.onSetSidebarOpen}/>
                         <Card className='card'>
                             <CardText className='text'>
                                 <TextField floatingLabelText="Title" fullWidth={true}
-                                           value={this.state.classData.title}
-                                           onChange={this.textChange.bind(this, 'title')}/><br/>
+                                value={this.state.classData.title} onChange={this.textChange.bind(this, 'title')}/><br/>
                                 <TextField floatingLabelText="Description" multiLine={true} rows={2} fullWidth={true}
-                                           value={this.state.classData.description}
-                                           onChange={this.textChange.bind(this, 'description')}/><br/>
+                                value={this.state.classData.description} onChange={this.textChange.bind(this, 'description')}/><br/>
                             </CardText>
                             <CardText>
                                 <RadioButtonGroup name="gender" labelPosition="right" defaultSelected="male">
-                                    <RadioButton style={{display: 'inline-block', width: '15%'}} value="male"
-                                                 label="Male"/>
-                                    <RadioButton style={{display: 'inline-block', width: '5%'}} value="female"
-                                                 label="Female"/>
+                                    <RadioButton style={{display: 'inline-block', width: '15%'}} value="male" label="Male"/>
+                                    <RadioButton style={{display: 'inline-block', width: '5%'}} value="female" label="Female"/>
                                 </RadioButtonGroup>
                             </CardText>
                             <CardText>
                                 <SelectField multiple={true} hintText="How many days in a week" fullWidth={true}
-                                             value={values}
-                                             onChange={this.handleChangeSelect.bind(this)}>{this.menuItems(values)}
+                                             value={values} onChange={this.handleChangeSelect.bind(this)}>{this.menuItems(values)}
                                 </SelectField>
                                 <TextField floatingLabelText="fee" fullWidth={true} type='number'
                                            value={this.state.classData.fee}
@@ -204,7 +196,9 @@ class CreateClass extends Component {
                                              floatingLabelText="Subject">
                                     <MenuItem key={1} value={1} primaryText="Chemistry"/>
                                     <MenuItem key={2} value={2} primaryText="Biology"/>
-                                    <MenuItem key={3} value={3} primaryText="English"/>
+                                    <MenuItem key={3} value={3} primaryText="Physics"/>
+                                    <MenuItem key={4} value={4} primaryText="English"/>
+                                    <MenuItem key={5} value={5} primaryText="Maths"/>
                                 </SelectField>
                                 <div>
                                     <TimePicker style={{display: 'inline-block', width: '50%'}} hintText="Start Time"
@@ -214,8 +208,7 @@ class CreateClass extends Component {
                                     <input type="file"/>
                                     {/*<Cropper src="./Image-20180103_210221.jpg" ref={ ref => { this.state.cropper = ref }}/>*/}
                                     {/*<button >Save</button>*/}
-                                    <RaisedButton label='Create' primary={true} className='finalButton'
-                                                  onClick={this.saveClassData.bind(this)}/>
+                                    <RaisedButton label='Create' primary={true} className='finalButton' onClick={this.saveClassData.bind(this)}/>
                                 </div>
                             </CardText>
                         </Card>
@@ -227,4 +220,5 @@ class CreateClass extends Component {
 }
 
 export default CreateClass;
-
+// https://www.npmjs.com/package/react-image-crop-component
+// https://www.youtube.com/watch?v=i29Lid7l9t4

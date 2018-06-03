@@ -11,6 +11,8 @@ import CreateClass from "./Component/create-class/create-class";
 import Classes from "./Component/classes/classes";
 import Drawer from "./Component/material/drawer/drawer";
 import ToolBar from "./Component/material/app-bar";
+import ImageCropper from "./Component/material/image-cropper/image-croper";
+import Setting from './Component/setting/setting'
 
 
 
@@ -41,6 +43,7 @@ class App extends Component {
                             <Route exact path={'/classes'} component={Classes}/>
                             <Route exact path={'/drawer'} component={Drawer}/>
                             <Route exact path={'/app-bar'} component={ToolBar}/>
+                            <Route exact path={'/setting'} component={Setting}/>
                         </Switch>
                     </div>
                 </Router>
